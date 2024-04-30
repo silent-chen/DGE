@@ -4,6 +4,6 @@ Minghao Chen, Iro Laina, Andrea Vedaldi
 
 [Paper]() | [Webpage](https://silent-chen.github.io/DGE/) 
 
-## Code is coming soon.
+## Code is coming in one week.
 
 
