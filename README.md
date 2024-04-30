@@ -2,7 +2,7 @@
 
 Minghao Chen, Iro Laina, Andrea Vedaldi
 
-[Paper]() | [Webpage](https://silent-chen.github.io/DGE/) 
+[Paper](https://arxiv.org/abs/2404.18929) | [Webpage](https://silent-chen.github.io/DGE/) 
 
 ## Code is coming in one week.
 
