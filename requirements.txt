@@ -1,0 +1,52 @@
+# other
+omegaconf==2.3.0
+jaxtyping
+typeguard
+nerfacc==0.3.3
+pyrender
+git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
+diffusers[torch]==0.19.3
+transformers==4.28.1
+accelerate
+opencv-python
+tensorboard
+matplotlib
+imageio>=2.28.0
+imageio[ffmpeg]
+git+https://github.com/NVlabs/nvdiffrast.git
+libigl
+xatlas
+trimesh[easy]
+networkx
+pysdf
+PyMCubes
+wandb
+gradio
+git+https://github.com/ashawkey/envlight.git
+torchmetrics
+
+# for zero123
+einops
+kornia==0.7.0
+# taming-transformers-rom1504
+git+https://github.com/openai/CLIP.git
+
+
+#vis
+torch_efficient_distloss
+mediapy
+plyfile
+rembg
+git+https://github.com/ashawkey/kiuikit
+scikit-learn
+scipy
+viser
+ninja
+easydict
+albumentations==0.5.2
+webdataset
+git+https://github.com/luca-medeiros/lang-segment-anything.git
+
+# gaussian splatting
+gaussiansplatting/submodules/diff-gaussian-rasterization
+gaussiansplatting/submodules/simple-knn
