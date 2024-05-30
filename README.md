@@ -5,8 +5,6 @@
 [Paper](https://arxiv.org/abs/2404.18929) | [Webpage](https://silent-chen.github.io/DGE/) 
 
 
-<br/><br/>
-
 <div align="center">
     <img width="100%" alt="teaser" src="https://github.com/silent-chen/DGE/blob/gh-page/resources/more_examples.png?raw=true"/>
 </div>
@@ -55,6 +53,7 @@ We also provide some example scripts in `./script`.
 ### Local Editing
 For local editing, you should provide the prompt for segmentation:
 ```buildoutcfg
+
 python launch.py --config configs/dge.yaml --train \
         data.source="PATH_TO_DATA" \
         system.gs_source="PATH_TO_PRETRAINED_GS_MODEL" \
@@ -85,7 +84,7 @@ If this repo is helpful for you, please consider to cite it. Thank you! :)
 
 This research is supported by ERC-CoG UNION 101001212. Iro Laina is also partially supported by the VisualAI EPSRC grant (EP/T028572/1).
 
-The code is largely based on [GaussianEditor](https://github.com/buaacyw/GaussianEditor) and [TokenFlow](https://github.com/omerbt/TokenFlow) and also inspired by worderful projects:
+The code is largely based on [GaussianEditor](https://github.com/buaacyw/GaussianEditor) and [TokenFlow](https://github.com/omerbt/TokenFlow). It is also inspired by worderful projects:
 
 - [Gaussian Splatting](https://github.com/graphdeco-inria/gaussian-splatting)
 - [Threestudio](https://github.com/threestudio-project/threestudio)
