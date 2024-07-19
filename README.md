@@ -11,6 +11,9 @@
 
 In this work, we introduce Direct Gaussian Editor (DGE), a novel method for fast 3D editing. We consider the task of 3D editing as a two-stage process, where the first stage focuses on achieving multi-view consistent 2D editing, followed by a secondary stage dedicated to precise 3D fitting.
 
+**Updates:**
+- [July 1, 2024] DGE is accepted to ECCV 2024!
+- [May 30, 2024] We release the code and scripts for generating figures in the paper!
 
 ## Abstract
 We consider the problem of editing 3D objects and scenes based on open-ended language instructions. The established paradigm to solve this problem is to use a 2D image generator or editor to guide the 3D editing process. However, this is often slow as it requires do update a computationally expensive 3D representations such as a neural radiance field, and to do so by using contradictory guidance from a 2D model which is inherently not multi-view consistent. We thus introduce the Direct Gaussian Editor (DGE), a method that addresses these issues in two ways. First, we modify a given high-quality image editor like InstructPix2Pix to be multi-view consistent. We do so by utilizing a training-free approach which integrates cues from the underlying 3D geometry of the scene. Second, given a multi-view consistent edited sequence of images of the object, we directly and efficiently optimize the 3D object representation, which is based on 3D Gaussian Splatting. Because it does not require to apply edits incrementally and iteratively, DGE is significantly more efficient than existing approaches, and comes with other perks such as allowing selective editing of parts.
@@ -20,6 +23,7 @@ We consider the problem of editing 3D objects and scenes based on open-ended lan
 To set up the enviroment you can easily run the following command:
 ```buildoutcfg
 conda create -n DGE python=3.8 -y 
+conda activate DGE
 
 # Install torch
 # CUDA 11.7
@@ -29,7 +33,6 @@ pip install torch==2.0.1+cu117 torchvision==0.15.2+cu117 --extra-index-url https
 # CUDA 11.8
 pip install torch==2.0.1+cu118 torchvision==0.15.2+cu118 --extra-index-url https://download.pytorch.org/whl/cu118
 
-conda activate DGE
 pip install -r requirements.txt
 ```
 For other CUDA version please following the instruction [here](https://pytorch.org/get-started/previous-versions/) to install torch >= 2.x.

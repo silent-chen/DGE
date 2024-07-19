@@ -521,8 +521,8 @@ class DGE(BaseLift3DSystem):
         return ret
     
     def edit_all_view(self, original_render_name, cache_name, update_camera=False, global_step=0):
-        if self.true_global_step >= self.cfg.camera_update_per_step:
-            self.guidance.use_normal_unet()
+        # if self.true_global_step >= self.cfg.camera_update_per_step * 2:
+        #     self.guidance.use_normal_unet()
         
         self.edited_cams = []
         if update_camera:

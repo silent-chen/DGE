@@ -15,7 +15,7 @@ from threestudio.utils.misc import C, parse_version
 from threestudio.utils.typing import *
 
 
-from threestudio.utils.dge_utils import register_pivotal, register_batch_idx, register_cams, register_epipolar_constrains, register_extended_attention, register_normal_attention, register_extended_attention, make_dge_block, isinstance_str, compute_epipolar_constrains
+from threestudio.utils.dge_utils import register_pivotal, register_batch_idx, register_cams, register_epipolar_constrains, register_extended_attention, register_normal_attention, register_extended_attention, make_dge_block, isinstance_str, compute_epipolar_constrains, register_normal_attn_flag
 
 @threestudio.register("dge-guidance")
 class DGEGuidance(BaseObject):
@@ -119,7 +119,7 @@ class DGEGuidance(BaseObject):
                 if not hasattr(module, "use_ada_layer_norm_zero"):
                     module.use_ada_layer_norm = False
                     module.use_ada_layer_norm_zero = False
-            register_extended_attention(self)
+        register_extended_attention(self)
 
     
     @torch.cuda.amp.autocast(enabled=False)
@@ -174,8 +174,9 @@ class DGEGuidance(BaseObject):
         return image.to(input_dtype)
 
     def use_normal_unet(self):
-        print("use normal unet")
+        # print("use normal unet")
         register_normal_attention(self)
+        register_normal_attn_flag(self.unet, True)
 
     def edit_latents(
         self,
@@ -203,9 +204,11 @@ class DGEGuidance(BaseObject):
             # sections of code used from https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion_instruct_pix2pix.py
             positive_text_embedding, negative_text_embedding, _ = text_embeddings.chunk(3)
             split_image_cond_latents, _, zero_image_cond_latents = image_cond_latents.chunk(3)
-            
             for t in self.scheduler.timesteps:
-                # predict the noise residual with unet, NO grad!
+                if t < 100:
+                    self.use_normal_unet()
+                else:
+                    register_normal_attn_flag(self.unet, False)
                 with torch.no_grad():
                     # pred noise
                     noise_pred_text = []

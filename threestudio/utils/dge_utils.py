@@ -254,6 +254,10 @@ def register_normal_attention(model):
             module.attn1.normal_attn = sa_forward(module.attn1)
             module.use_normal_attn = True
 
+def register_normal_attn_flag(diffusion_model, use_normal_attn):
+    for _, module in diffusion_model.named_modules():
+        if isinstance_str(module, "BasicTransformerBlock"):
+            setattr(module, "use_normal_attn", use_normal_attn)
 
 def register_extended_attention(model):
     def sa_forward(self):
@@ -374,7 +378,7 @@ def make_dge_block(block_class: Type[torch.nn.Module]) -> Type[torch.nn.Module]:
             norm_hidden_states = norm_hidden_states.view(3, n_frames, sequence_length, dim)
             if self.pivotal_pass:
                 self.pivot_hidden_states = norm_hidden_states
-            if not hasattr(self, 'use_normal_attn'):
+            if not self.use_normal_attn:
                 if self.pivotal_pass:
                     self.pivot_hidden_states = norm_hidden_states
                 else:
@@ -458,7 +462,7 @@ def make_dge_block(block_class: Type[torch.nn.Module]) -> Type[torch.nn.Module]:
             
             # 1. Self-Attention
             cross_attention_kwargs = cross_attention_kwargs if cross_attention_kwargs is not None else {}
-            if hasattr(self, 'use_normal_attn'):
+            if self.use_normal_attn:
                 # print("use normal attn")
                 self.attn_output = self.attn1.normal_attn(
                         norm_hidden_states.view(batch_size, sequence_length, dim),
@@ -466,6 +470,7 @@ def make_dge_block(block_class: Type[torch.nn.Module]) -> Type[torch.nn.Module]:
                         **cross_attention_kwargs,
                     )         
             else:
+                # print("use extend attn")
                 if self.pivotal_pass:
                     # norm_hidden_states.shape = 3, n_frames * seq_len, dim
                     self.attn_output = self.attn1(
@@ -485,7 +490,7 @@ def make_dge_block(block_class: Type[torch.nn.Module]) -> Type[torch.nn.Module]:
                 self.n = gate_msa.unsqueeze(1) * self.attn_output
 
             # gather values from attn_output, using idx as indices, and get a tensor of shape 3, n_frames, seq_len, dim
-            if not hasattr(self, 'use_normal_attn'):
+            if not self.use_normal_attn:
                 if not self.pivotal_pass:
                     if len(batch_idxs) == 2:
                         attn_1, attn_2 = self.attn_output[:, :, 0], self.attn_output[:, :, 1]
