@@ -6,7 +6,7 @@ nerfacc==0.3.3
 pyrender
 git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
 diffusers[torch]==0.19.3
-transformers==4.28.1
+transformers
 accelerate
 opencv-python
 tensorboard

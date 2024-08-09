@@ -22,16 +22,16 @@ We consider the problem of editing 3D objects and scenes based on open-ended lan
 
 To set up the enviroment you can easily run the following command:
 ```buildoutcfg
-conda create -n DGE python=3.8 -y 
+conda create -n DGE python=3.10 -y 
 conda activate DGE
 
 # Install torch
 # CUDA 11.7
-pip install torch==2.0.1+cu117 torchvision==0.15.2+cu117 --extra-index-url https://download.pytorch.org/whl/cu117
+pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu117
 
 
 # CUDA 11.8
-pip install torch==2.0.1+cu118 torchvision==0.15.2+cu118 --extra-index-url https://download.pytorch.org/whl/cu118
+pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu118
 
 pip install -r requirements.txt
 ```
